@@ -1,0 +1,16 @@
+<h2>Recipes</h2>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+  <span class="navbar-brand mb-0 h2">Recipes</span>
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/register-recipe">Register Recipe</a>
+  </div>
+</nav>
+
+<h3>All recipes registered:</h3>
+<ul>
+  <li *ngFor="let recipe of recipes">
+    {{recipe.number}} ({{recipe.doctor}} {{recipe.meds}})
+    - <a (click)="deleteRecipe(recipe.id)" class="text-danger">Delete</a>
+    - <a routerLink="/recipes" class="text-danger">Edit</a>
+  </li>
+</ul>

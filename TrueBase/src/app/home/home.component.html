@@ -1,0 +1,13 @@
+﻿<h1>Hi {{currentUser.firstName}}!</h1>
+<p>You're logged in Pharmacy Pichel!!</p>
+<!-- <ul>
+    <li *ngFor="let user of users">
+        {{user.username}} ({{user.firstName}} {{user.lastName}} {{user.cedula}} {{user.phone}} )
+        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+        - <a routerLink="/edit-user" class="text-danger">Edit</a>
+    </li>
+</ul> -->
+
+{{currentUser.username}} ({{currentUser.firstName}} {{currentUser.lastName}} {{currentUser.cedula}} {{currentUser.phone}} )
+        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+        - <a routerLink="/edit-user" class="text-danger">Edit</a>
