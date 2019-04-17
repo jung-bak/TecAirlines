@@ -2,7 +2,7 @@
         - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
         - <a routerLink="/edit-user" class="text-danger">Edit</a> -->
 
-<!-- container de carouser -->
+<!-- carouser -->
 <div id="carousel" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -31,89 +31,76 @@
 </div>
 
 <div class="container">
+  <hr>
+  <!-- container busqueda y reservacion de vuelo -->
+  <div class="card">
+    <div class="card-body">
+      <!-- primera fila radio box -->
+      <div class="row justify-content-left">
+         <div class="col-md-auto">
+             <input type="radio" id="ivu" name="drone" value="ivu" checked width="100%">
+             <label for="ivu">Ida y Vuelta</label>
+         </div>
+         <div class="col-md-auto">
+             <input type="radio" id="ida" name="drone" value="ida">
+             <label for="ida">Ida</label>
+         </div>
+      </div>
 
-<hr>
-<!-- container busqueda y reservacion de vuelo -->
-<div class="card">
-  <div class="card-body">
-    <!-- primera fila radio box -->
-    <div class="row justify-content-left">
-        <div class="col-md-auto">
-            <input type="radio" id="ivu" name="drone" value="ivu" checked width="100%">
-            <label for="ivu">Ida y Vuelta</label>
-        </div>
-        <div class="col-md-auto">
-            <input type="radio" id="ida" name="drone" value="ida">
-            <label for="ida">Ida</label>
-        </div>
-     </div>
-
-     <!-- Segunda fila -->
-    <div class="row">
-      <!-- Columna Origen -->
-      <div class="col-6 col-md-4">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selecciona tu Origen</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
-      </div>
-      <!-- Columna Destino -->
-      <div class="col-6 col-md-4">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selecciona tu Destino</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
-      </div>
-      <!-- Columna FS -->
-      <div class="col-3 col-md-2">
-        <button class="btn btn-outline-secondary dropdown-toggle btn-md-auto" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Salida</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
-      </div>
-      <!-- Columna FR -->
-      <div class="col-3 col-md-2">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Regreso</button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div role="separator" class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
+      <!-- Segunda fila -->
+     <div class="row">
+       <!-- Columna Origen -->
+       <div class="col-6 col-md-4">
+         <h6>Origen</h6>
+         <kendo-combobox class="btn" [data]="listOrigin"></kendo-combobox>
+       </div>
+       <!-- Columna Destino -->
+       <div class="col-6 col-md-4">
+         <h6>Destino</h6>
+         <kendo-combobox class="btn" [data]="listDest"></kendo-combobox>
+       </div>
+       <!-- Columna FS -->
+       <!-- <div class="col-3 col-md-2">
+         <h6>Fecha de Salida</h6>
+         <kendo-calendar></kendo-calendar>
+       </div> -->
+       <!-- Columna FR -->
+       <!-- <div class="col-3 col-md-2">
+         <h6>Fecha de Regreso</h6>
+         <kendo-calendar></kendo-calendar>
+        </div> -->
+        <div class="col-3 col-md-4">
+            <div class="example-config">
+                Selected range: {{ range | json }}
             </div>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cantidad de Boletos</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div role="separator" class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
+            <kendo-daterange>
+                <label>
+                    <span class="label">Start</span>
+                    <kendo-dateinput kendoDateRangeStartInput [(value)]="range.start"></kendo-dateinput>
+                </label>
+                <label>
+                    <span class="label">End</span>
+                    <kendo-dateinput kendoDateRangeEndInput [(value)]="range.end"></kendo-dateinput>
+                </label>
+            </kendo-daterange>
         </div>
       </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="Codigo Promocional" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      </div>
-      <div class="col">
-        <button class="btn btn-primary" type="button">Buscar Vuelo</button>
+      <div class="row">
+        <div class="col">
+          <!-- Cantidad de Boletos -->
+          <h6>Cantidad de Boletos</h6>
+          <kendo-combobox class="btn" [data]="listTick"></kendo-combobox>
+        </div>
+        <div class="col">
+          <h6>Codigo Promocional</h6>
+          <input type="text" class="form-control" placeholder="123456789" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" type="button">Buscar Vuelo</button>
+        </div>
       </div>
     </div>
   </div>
+  <hr>
 </div>
-<hr>
-</div>
+

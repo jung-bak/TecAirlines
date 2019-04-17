@@ -1,5 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -17,14 +19,23 @@ import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { NavbarComponent } from './navbar';
 
+import { InputsModule } from '@progress/kendo-angular-inputs';
+
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
         FormsModule,
-        routing
-    ],
+        routing,
+        BrowserAnimationsModule,
+        DropDownsModule
+,
+        InputsModule ,
+        DropDownsModule ,
+        DateInputsModule  ],
     declarations: [
         AppComponent,
         AlertComponent,
