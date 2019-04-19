@@ -17,9 +17,9 @@ export class RegisterComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(6)]],
             cedula: ['', [Validators.required, Validators.minLength(8)]],
             phone: ['', [Validators.required, Validators.minLength(8)]],
-            dir:['', Validators.required]
+            email:['', Validators.required]
         });
     }
 

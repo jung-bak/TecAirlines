@@ -7,6 +7,6 @@
     cedula: string;
     fechaNacimiento: string;
     phone: string;
-    dir: string;
+    emial: string;
     token: string;
 }
