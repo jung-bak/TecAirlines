@@ -12,7 +12,22 @@
     </div>
   </div>
   <hr>
-  <progress-bar [progress]="0" [color]="'#488aff'"></progress-bar>
+  <progress-bar [progress]="perce" [color]="'#488aff'"></progress-bar>
   <hr>
 </div>
-<!-- <app-airbus></app-airbus> -->
+<div class="container">
+  <app-baseplane *ngIf="sSeats"></app-baseplane>
+  <app-paymentinfo *ngIf="sPay_info"></app-paymentinfo>
+  <!-- <app-confirmation *ngIf="sConfirmation"></app-confirmation> -->
+  <app-confirmation></app-confirmation>
+</div>
+<div class="container">
+    <div style="text-align: right">
+        <button (click)="back()" class="btn btn-warning">
+            Atras
+          </button>
+        <button (click)="next()" class="btn btn-success">
+            Siguiente
+          </button>
+    </div>
+  </div>

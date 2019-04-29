@@ -24,9 +24,10 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ReservaComponent } from './reserva/reserva.component';
 import { ProgressBarModule } from 'angular-progress-bar';
-import { BillingComponent } from './billing/billing.component';
-import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
-//import { AirbusComponent } from './plane_model';
+import { BaseplaneComponent } from './baseplane/baseplane.component';
+import { PaymentinfoComponent } from './paymentinfo/paymentinfo.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { DataService } from './_services';
 
 @NgModule({
     imports: [
@@ -49,15 +50,15 @@ import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
         LoginComponent,
         RegisterComponent,
         NavbarComponent,
-        ReservaComponent ,
-        BillingComponent ,
-        ConfirmacionComponent ,
-        //AirbusComponent
+        ReservaComponent,
+        BaseplaneComponent,
+        PaymentinfoComponent,
+        ConfirmationComponent
       ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+        DataService,
         // provider used to create fake backend
         fakeBackendProvider
     ],

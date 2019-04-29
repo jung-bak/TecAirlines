@@ -7,9 +7,16 @@ export class DataService {
     private userId = new BehaviorSubject<number>(0);
     currentUserId = this.userId.asObservable();
 
+    private number = new BehaviorSubject<number>(0);
+    currentNumber = this.number.asObservable();
+
     constructor() {}
 
-    changeMessage(id: number) {
+    changeID(id: number) {
         this.userId.next(id);
+    }
+
+    changeNumber(num: number) {
+      this.number.next(num);
     }
 }

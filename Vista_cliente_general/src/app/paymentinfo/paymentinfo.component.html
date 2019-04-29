@@ -1,0 +1,45 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="cName">Nombre en la tarjeta</label>
+            <input type="text" formControlName="cName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cName.errors } "/>
+            <div *ngIf="submitted && f.cName.errors" class="invalid-feedback">
+              <div *ngIf="f.cName.errors.required">El nombre en la tarjeta es necesario</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cNumber">Numero en la tarjeta</label>
+            <input type="tel" formControlName="cNumber" maxlength="16" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cNumber.errors } "/>
+            <div *ngIf="submitted && f.cNumber.errors.required" class="invalid-feedback">
+              <div *ngIf="f.cNumber.errors.required">El numero en la tarjeta es necesario</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col s6">
+              <label for="cMonth">Fecha de expiracion</label>
+              <input type="tel" formControlName="cMonth" maxlength="2" class="form-control" [ngClass]="{'is-invalid': submitted && f.cMonth.errors }" />
+              <div *ngIf="submitted && f.cMonth.errors.required" class="invalid-feedback">
+                <div *ngIf="f.cMonth.errors.required">El mes de vencimiento es necesario</div>
+              </div>
+            </div>
+            <div class="form-group col s6">
+              <label for="cYear">Año</label>
+              <input type="tel" formControlName="cYear" maxlength="2" class="form-control" [ngClass]="{'is-invalid': submitted && f.cYear.errors }" />
+              <div *ngIf="submitted && f.cYear.errors.required" class="invalid-feedback">
+                <div *ngIf="f.cYear.errors.required">El año de vencimiento es necesario</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Añadir metodo de pago</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="updateNumber()">Update X</button>
+{{numero}}
