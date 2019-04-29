@@ -9,6 +9,7 @@ import { DataService } from '@app/_services';
 export class ConfirmationComponent implements OnInit {
 
   numero: number;
+  cart: any[];
 
   constructor(
     private data: DataService,
@@ -16,6 +17,7 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.data.currentNumber.subscribe(number => this.numero = number);
+    this.data.currentCart.subscribe(cart => this.cart = cart);
   }
 
 }

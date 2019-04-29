@@ -2,18 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '@app/_services';
 
 @Component({
-  selector: 'app-baseplane',
-  templateUrl: './baseplane.component.html',
-  styleUrls: ['./baseplane.component.scss']
+  selector: 'app-airbus',
+  templateUrl: './airbus.component.html',
+  styleUrls: ['./airbus.component.scss']
 })
-
-export class BaseplaneComponent implements OnInit {
+export class AirbusComponent implements OnInit {
 
   dataCart: any[];
-
   private seatConfig: any = null;
   private seatmap = [];
-
   private seatChartConfig = {
     showRowsLabel : false,
     showRowWisePricing : false,
@@ -21,11 +18,11 @@ export class BaseplaneComponent implements OnInit {
   };
 
   private cart = {
-    selectedSeats : [],
-    seatstoStore : [],
-    totalamount : 0,
-    cartId : '',
-    eventId : 0
+    selectedSeats: [],
+    seatstoStore: [],
+    totalamount: 0,
+    cartId: '',
+    eventId: 0
   };
 
   constructor(
@@ -34,42 +31,40 @@ export class BaseplaneComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.currentCart.subscribe(cart => this.dataCart = cart);
-    // Process a simple bus layout
     this.seatConfig = [
       {
-        'seat_price': 250,
+        'seat_price': 100,
+        'economy_price': 50,
+        'business_price': 150,
+        'first_price': 250,
         'seat_map': [
           {
             'seat_label': '1',
-            'layout': 'g____g'
+            'layout': 'nnnnnnnnnnnn__nnnnn____nnnnn'
           },
           {
             'seat_label': '2',
-            'layout': 'gg__gg'
+            'layout': 'nnnnnnnnnnnn__nnnnn_________'
           },
           {
             'seat_label': '3',
-            'layout': 'gg__gg'
+            'layout': 'nnnnnnnnnnnn________________'
           },
           {
             'seat_label': '4',
-            'layout': 'gg__gg'
+            'layout': '____________________________'
           },
           {
             'seat_label': '5',
-            'layout': 'gg__gg'
+            'layout': 'nnnnnnnnnnnn________________'
           },
           {
             'seat_label': '6',
-            'layout': 'gg__gg'
+            'layout': 'nnnnnnnnnnnn__nnnnn_________'
           },
           {
             'seat_label': '7',
-            'layout': 'gg__gg'
-          },
-          {
-            'seat_label': '8',
-            'layout': 'gggggg'
+            'layout': 'nnnnnnnnnnnn__nnnnn____nnnnn'
           }
         ]
       }
@@ -81,59 +76,66 @@ export class BaseplaneComponent implements OnInit {
     this.data.changeCart([this.cart.totalamount, this.cart.selectedSeats]);
   }
 
-  public processSeatChart ( map_data: any[] ) {
-
-      if ( map_data.length > 0 ) {
-        let seatNoCounter = 1;
-        for (let __counter = 0; __counter < map_data.length; __counter++) {
-          let row_label = '';
-          const item_map = map_data[__counter].seat_map;
-
-          // Get the label name and price
-          row_label = 'Row ' + item_map[0].seat_label + ' - ';
+  public processSeatChart(map_data: any[]) {
+    if ( map_data.length > 0 ) {
+      let seatNoCounter = 1;
+      for (let __counter = 0; __counter < map_data.length; __counter++) {
+        let totalItemCounter = 1;
+        let row_label = '';
+        const item_map = map_data[__counter].seat_map;
+        row_label = 'Row ' + item_map[0].seat_label + ' - ';
           if ( item_map[ item_map.length - 1].seat_label !== ' ' ) {
             row_label += item_map[ item_map.length - 1].seat_label;
           } else {
             row_label += item_map[ item_map.length - 2].seat_label;
           }
-          row_label += ' : Rs. ' + map_data[__counter].seat_price;
-
-          item_map.forEach(map_element => {
-            const mapObj = {
-              'seatRowLabel' : map_element.seat_label,
-              'seats' : [],
-              'seatPricingInformation' : row_label
+          if (totalItemCounter <= 12) {
+            row_label += ' : Rs. ' + map_data[__counter].economy_price;
+          } else if ( 15 <= totalItemCounter && totalItemCounter <= 19) {
+            row_label += ' : Rs. ' + map_data[__counter].business_price;
+          } else if ( 24 <= totalItemCounter) {
+            row_label += ' : Rs. ' + map_data[__counter].first_price;
+          }
+        item_map.forEach(map_element => {
+          const mapObj = {
+            'seatRowLabel': map_element.seat_label,
+            'seats': [],
+            'seatPricingInformation': row_label
+          };
+          row_label = '';
+          const seatValArr = map_element.layout.split('');
+          if (this.seatChartConfig.newSeatNoForRow) {
+            seatNoCounter = 1;
+          }
+          seatValArr.forEach(item => {
+            let seatObj = {
+              'key': map_element.seat_label + '_' + totalItemCounter,
+              'price' : map_data[__counter]['seat_price'],
+              'status' : 'available'
             };
-            row_label = '';
-            const seatValArr = map_element.layout.split('');
-            if ( this.seatChartConfig.newSeatNoForRow ) {
-              seatNoCounter = 1; // Reset the seat label counter for new row
+            if (totalItemCounter <= 12) {
+              seatObj.price = map_data[__counter]['economy_price'];
+            } else if ( 15 <= totalItemCounter && totalItemCounter <= 19) {
+              seatObj.price = map_data[__counter]['business_price'];
+            } else if ( 24 <= totalItemCounter) {
+              seatObj.price = map_data[__counter]['first_price'];
             }
-            let totalItemCounter = 1;
-            seatValArr.forEach(item => {
-              const seatObj = {
-                'key' : map_element.seat_label + '_' + totalItemCounter,
-                'price' : map_data[__counter]['seat_price'],
-                'status' : 'available'
-              };
-
-              if ( item !== '_') {
-                seatObj['seatLabel'] = map_element.seat_label + ' ' + seatNoCounter;
-                if (seatNoCounter < 10) { seatObj['seatNo'] = '0' + seatNoCounter; } else { seatObj['seatNo'] = '' + seatNoCounter; }
-
-                seatNoCounter++;
-              } else {
-                seatObj['seatLabel'] = '';
-              }
-              totalItemCounter++;
-              mapObj['seats'].push(seatObj);
-            });
-            console.log(' \n\n\n Seat Objects ' , mapObj);
-            this.seatmap.push( mapObj );
-
+            if ( item !== '_') {
+              seatObj['seatLabel'] = map_element.seat_label + ' ' + seatNoCounter;
+              if (seatNoCounter < 10) { seatObj['seatNo'] = '0' + seatNoCounter; } else { seatObj['seatNo'] = '' + seatNoCounter; }
+              seatNoCounter++;
+            } else {
+              seatObj['seatLabel'] = '';
+            }
+            totalItemCounter++;
+            if (totalItemCounter === 29) { totalItemCounter = 1; }
+            mapObj['seats'].push(seatObj);
           });
-        }
+          console.log('\n\n\n Seat Objects ', mapObj);
+          this.seatmap.push(mapObj);
+        });
       }
+    }
   }
 
   public selectSeat( seatObject: any ) {

@@ -16,10 +16,9 @@
   <hr>
 </div>
 <div class="container">
-  <app-baseplane *ngIf="sSeats"></app-baseplane>
+  <app-airbus *ngIf="sSeats"></app-airbus>
   <app-paymentinfo *ngIf="sPay_info"></app-paymentinfo>
-  <!-- <app-confirmation *ngIf="sConfirmation"></app-confirmation> -->
-  <app-confirmation></app-confirmation>
+  <app-confirmation *ngIf="sConfirmation"></app-confirmation>
 </div>
 <div class="container">
     <div style="text-align: right">

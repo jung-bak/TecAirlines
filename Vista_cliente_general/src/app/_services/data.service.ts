@@ -10,6 +10,9 @@ export class DataService {
     private number = new BehaviorSubject<number>(0);
     currentNumber = this.number.asObservable();
 
+    private cart = new BehaviorSubject<any[]>([]);
+    currentCart = this.cart.asObservable();
+
     constructor() {}
 
     changeID(id: number) {
@@ -18,5 +21,9 @@ export class DataService {
 
     changeNumber(num: number) {
       this.number.next(num);
+    }
+
+    changeCart(newCart: any[]) {
+      this.cart.next(newCart);
     }
 }
