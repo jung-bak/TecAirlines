@@ -27,8 +27,12 @@ import { ProgressBarModule } from 'angular-progress-bar';
 import { BaseplaneComponent } from './baseplane/baseplane.component';
 import { PaymentinfoComponent } from './paymentinfo/paymentinfo.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { DataService } from './_services';;
-import { AirbusComponent } from './airbus/airbus.component'
+import { DataService } from './_services';
+import { AirbusComponent } from './airbus/airbus.component';
+import { DobleComponent } from './doble/doble.component';
+import { UnicoComponent } from './unico/unico.component';
+
+
 
 @NgModule({
     imports: [
@@ -56,7 +60,9 @@ import { AirbusComponent } from './airbus/airbus.component'
         PaymentinfoComponent,
         ConfirmationComponent
 ,
-        AirbusComponent      ],
+        AirbusComponent ,
+        DobleComponent ,
+        UnicoComponent    ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

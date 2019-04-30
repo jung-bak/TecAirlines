@@ -22,8 +22,11 @@
 </div>
 <div class="container">
     <div style="text-align: right">
-        <button (click)="back()" class="btn btn-warning">
+        <button *ngIf="!atCero" (click)="back()" class="btn btn-warning">
             Atras
+          </button>
+          <button *ngIf="atCero" [routerLink]="['/']" routerLinkActive="router-link-active" class="btn btn-warning">
+            Buscar Vuelo
           </button>
         <button (click)="next()" class="btn btn-success">
             Siguiente

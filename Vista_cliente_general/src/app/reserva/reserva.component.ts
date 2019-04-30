@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '@app/_services';
 
 @Component({
   selector: 'app-reserva',
@@ -11,9 +12,15 @@ export class ReservaComponent implements OnInit {
   public sSeats = true;
   public sPay_info = false;
   public sConfirmation = false;
-  constructor() { }
+  dateL: any[];
+  atCero: boolean = true;
+
+  constructor(
+    private date: DataService,
+  ) { }
 
   ngOnInit() {
+    this.date.currentDateRange.subscribe(dateRange => this.dateL = dateRange);
   }
 
   next() {
@@ -21,6 +28,7 @@ export class ReservaComponent implements OnInit {
       this.sSeats = !this.sSeats;
       this.sPay_info = true;
       this.perce += 33;
+      this.atCero = false;
     } else if (this.perce === 33) {
       this.sPay_info = !this.sPay_info;
       this.sConfirmation = true;
@@ -37,6 +45,7 @@ export class ReservaComponent implements OnInit {
       this.sPay_info = !this.sPay_info;
       this.sSeats = !this.sSeats;
       this.perce -= 33;
+      this.atCero = true;
     }
   }
 

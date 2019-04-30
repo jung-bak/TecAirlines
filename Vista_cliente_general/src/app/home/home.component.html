@@ -35,57 +35,23 @@
         <!-- primera fila radio box -->
         <div class="row justify-content-left">
            <div class="col-md-auto">
-               <input type="radio" id="ivu" name="drone" value="ivu" checked width="100%">
-               <label for="ivu">Ida y Vuelta</label>
+              <label>
+                  <input type="radio" name="trip" value="2way" (click)="activate(false)" checked="checked" [(ngModel)]="trip" >
+                  Ida y Vuelta
+                </label>
            </div>
            <div class="col-md-auto">
-               <input type="radio" id="ida" name="drone" value="ida">
-               <label for="ida">Ida</label>
+               <label>
+                 <input type="radio" name="trip" value="1way" (click)="activate(true)" [(ngModel)]="trip">
+                 Ida
+               </label>
            </div>
         </div>
+<!-- asdfasdfasd -->
 
-        <!-- Segunda fila -->
-       <div class="row">
-         <!-- Columna Origen -->
-         <div class="col-6 col-md-4">
-           <h6>Origen</h6>
-           <kendo-combobox class="btn" [data]="listOrigin"></kendo-combobox>
-         </div>
-         <!-- Columna Destino -->
-         <div class="col-6 col-md-4">
-           <h6>Destino</h6>
-           <kendo-combobox class="btn" [data]="listDest"></kendo-combobox>
-         </div>
-          <div class="col-3 col-md-4">
-              <!-- <div class="example-config">
-                  Selected range: {{ range | json }}
-              </div> -->
-              <kendo-daterange>
-                  <label>
-                      <span class="label">Start</span>
-                      <kendo-dateinput kendoDateRangeStartInput [(value)]="range.start"></kendo-dateinput>
-                  </label>
-                  <label>
-                      <span class="label">End</span>
-                      <kendo-dateinput kendoDateRangeEndInput [(value)]="range.end"></kendo-dateinput>
-                  </label>
-              </kendo-daterange>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <!-- Cantidad de Boletos -->
-            <h6>Cantidad de Boletos</h6>
-            <kendo-combobox class="btn" [data]="listTick"></kendo-combobox>
-          </div>
-          <div class="col">
-            <h6>Codigo Promocional</h6>
-            <input type="text" class="form-control" placeholder="123456789" aria-label="Recipient's username" aria-describedby="basic-addon2">
-          </div>
-          <div class="col">
-            <button class="btn btn-primary" type="button" [routerLink]="['/reserva']" routerLinkActive="router-link-active" >Buscar Vuelo</button>
-          </div>
-        </div>
+<!-- asdfasdfasd -->
+        <app-doble *ngIf="!active"></app-doble>
+        <app-unico *ngIf="active"></app-unico>
       </div>
     </div>
   </section>

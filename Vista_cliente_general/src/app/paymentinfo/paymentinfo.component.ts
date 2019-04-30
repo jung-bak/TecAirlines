@@ -25,7 +25,7 @@ export class PaymentinfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data.currentNumber.subscribe(number => this.numero = number);
+    this.data.currentcardNumber.subscribe(number => this.numero = number);
 
     this.cardForm = this.formBuilder.group({
       cName: ['', Validators.required],
@@ -38,7 +38,7 @@ export class PaymentinfoComponent implements OnInit {
   get f() { return this.cardForm.controls; }
 
   updateNumber() {
-    this.data.changeNumber(this.cNumber_value);
+    this.data.changecardNumber(this.cNumber_value);
   }
 
   onSubmit() {

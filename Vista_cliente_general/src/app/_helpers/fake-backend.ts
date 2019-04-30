@@ -10,9 +10,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
-        let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-        let recipes: any[] = JSON.parse(localStorage.getItem('recipes')) || [];
-        let orders: any[] = JSON.parse(localStorage.getItem('orders')) || [];
+        const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+        const recipes: any[] = JSON.parse(localStorage.getItem('recipes')) || [];
+        const orders: any[] = JSON.parse(localStorage.getItem('orders')) || [];
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
@@ -20,14 +20,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
                 // find if any user matches login credentials
-                let filteredUsers = users.filter(user => {
+                const filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
                 });
 
                 if (filteredUsers.length) {
                     // if login details are valid return 200 OK with user details and fake jwt token
-                    let user = filteredUsers[0];
-                    let body = {
+                    const user = filteredUsers[0];
+                    const body = {
                         id: user.id,
                         username: user.username,
                         firstName: user.firstName,
@@ -69,10 +69,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
-                    let urlParts = request.url.split('/');
-                    let id = parseInt(urlParts[urlParts.length - 1]);
-                    let matchedUsers = users.filter(user => { return user.id === id; });
-                    let user = matchedUsers.length ? matchedUsers[0] : null;
+                    const urlParts = request.url.split('/');
+                    const id = parseInt(urlParts[urlParts.length - 1]);
+                    const matchedUsers = users.filter(user => { return user.id === id; });
+                    const user = matchedUsers.length ? matchedUsers[0] : null;
 
                     return of(new HttpResponse({ status: 200, body: user }));
                 } else {
@@ -83,20 +83,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // get recipes by id
             if (request.url.match(/\/recipes\/\d+$/) && request.method === 'GET') {
-                let urlParts = request.url.split('/');
-                let id = parseInt(urlParts[urlParts.length - 1]);
-                let matchedRecipes = recipes.filter(recipe => { return recipe.id === id; });
-                let recipe = matchedRecipes.length ? matchedRecipes[0] : null;
+                const urlParts = request.url.split('/');
+                const id = parseInt(urlParts[urlParts.length - 1]);
+                const matchedRecipes = recipes.filter(recipe => { return recipe.id === id; });
+                const recipe = matchedRecipes.length ? matchedRecipes[0] : null;
 
                 return of(new HttpResponse({ status: 200, body: recipe}));
             }
 
             // get orders by id
             if (request.url.match(/\/orders\/\d+$/) && request.method === 'GET') {
-                let urlParts = request.url.split('/');
-                let id = parseInt(urlParts[urlParts.length - 1]);
-                let matchedOrders = orders.filter(order => { return order.id === id; });
-                let recipe = matchedOrders.length ? matchedOrders[0] : null;
+                const urlParts = request.url.split('/');
+                const id = parseInt(urlParts[urlParts.length - 1]);
+                const matchedOrders = orders.filter(order => { return order.id === id; });
+                const recipe = matchedOrders.length ? matchedOrders[0] : null;
 
                 return of(new HttpResponse({ status: 200, body: recipe}));
             }
@@ -104,10 +104,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // register user
             if (request.url.endsWith('/users/register') && request.method === 'POST') {
                 // get new user object from post body
-                let newUser = request.body;
+                const newUser = request.body;
 
                 // validation
-                let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                const duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
                 if (duplicateUser) {
                     return throwError({ error: { message: 'Username "' + newUser.username + '" is already taken' } });
                 }
@@ -123,9 +123,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // register recipe
             if (request.url.endsWith('/recipes/registerRecipe') && request.method === 'POST') {
-                let newRecipe = request.body;
+                const newRecipe = request.body;
 
-                let duplicateRecipe = recipes.filter(recipe => { return recipe.number === newRecipe.number; }).length;
+                const duplicateRecipe = recipes.filter(recipe => { return recipe.number === newRecipe.number; }).length;
                 if (duplicateRecipe) {
                     return throwError({ error: { message: 'Recipe number "' + newRecipe.number + '" is already taken' } });
                 }
@@ -139,7 +139,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // place order
             if (request.url.endsWith('/orders/placeOrder') && request.method === 'POST') {
-                let newOrder = request.body;
+                const newOrder = request.body;
 
                 newOrder.id = orders.length + 1;
                 orders.push(newOrder);
@@ -153,10 +153,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
-                    let urlParts = request.url.split('/');
-                    let id = parseInt(urlParts[urlParts.length - 1]);
+                    const urlParts = request.url.split('/');
+                    const id = parseInt(urlParts[urlParts.length - 1]);
                     for (let i = 0; i < users.length; i++) {
-                        let user = users[i];
+                        const user = users[i];
                         if (user.id === id) {
                             // delete user
                             users.splice(i, 1);
@@ -175,10 +175,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // delete recipe
             if (request.url.match(/\/recipes\/\d+$/) && request.method === 'DELETE') {
-                let urlParts = request.url.split('/');
-                let id = parseInt(urlParts[urlParts.length - 1]);
+                const urlParts = request.url.split('/');
+                const id = parseInt(urlParts[urlParts.length - 1]);
                 for (let i = 0; i < recipes.length; i++) {
-                    let recipe = recipes[i];
+                    const recipe = recipes[i];
                     if (recipe.id === id) {
                         // delete user
                         recipes.splice(i, 1);
@@ -191,10 +191,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // delete order
             if (request.url.match(/\/orders\/\d+$/) && request.method === 'DELETE') {
-                let urlParts = request.url.split('/');
-                let id = parseInt(urlParts[urlParts.length - 1]);
+                const urlParts = request.url.split('/');
+                const id = parseInt(urlParts[urlParts.length - 1]);
                 for (let i = 0; i < orders.length; i++) {
-                    let recipe = orders[i];
+                    const recipe = orders[i];
                     if (recipe.id === id) {
                         // delete user
                         orders.splice(i, 1);
@@ -207,7 +207,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // pass through any requests not handled above
             return next.handle(request);
-            
+
         }))
 
 

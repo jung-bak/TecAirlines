@@ -1,0 +1,41 @@
+<div class="row">
+    <!-- Columna Origen -->
+    <div class="col-6 col-md-4">
+      <h6>Origen</h6>
+      <kendo-combobox class="btn" [data]="listOrigin" [(ngModel)]="origin"></kendo-combobox>
+    </div>
+    <!-- Columna Destino -->
+    <div class="col-6 col-md-4">
+      <h6>Destino</h6>
+      <kendo-combobox class="btn" [data]="listDest" [(ngModel)]="dest"></kendo-combobox>
+    </div>
+    <div class="col-3 col-md-4">
+      <!-- <div class="example-config">
+        Selected range: {{ range | json}}
+      </div> -->
+      <kendo-daterange>
+        <label>
+          <span class="label">Start</span>
+            <kendo-dateinput kendoDateRangeStartInput [(value)]="range[0]"></kendo-dateinput>
+        </label>
+        <label>
+          <span class="label">End</span>
+          <kendo-dateinput kendoDateRangeEndInput [(value)]="range[1]"></kendo-dateinput>
+        </label>
+      </kendo-daterange>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- Cantidad de Boletos -->
+      <h6>Cantidad de Boletos</h6>
+      <kendo-combobox class="btn" [data]="listTick" [(ngModel)]="ticks"></kendo-combobox>
+    </div>
+    <div class="col">
+      <h6>Codigo Promocional</h6>
+      <input type="text" class="form-control" [(ngModel)]="promCode" placeholder="123456789" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    </div>
+    <div class="col">
+        <button class="btn btn-primary" type="button" [routerLink]="['/reserva']" routerLinkActive="router-link-active" (click)="updateData()" >Buscar Vuelo</button>
+      </div>
+  </div>
