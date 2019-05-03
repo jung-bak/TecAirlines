@@ -8,16 +8,18 @@ import { DataService } from '@app/_services';
 })
 export class ConfirmationComponent implements OnInit {
 
-  numero: number;
+  cardNumber = '';
   cart: any[];
+  totalA: number;
 
   constructor(
     private data: DataService,
   ) { }
 
   ngOnInit() {
-    this.data.currentcardNumber.subscribe(number => this.numero = number);
-    this.data.currentCart.subscribe(cart => this.cart = cart);
+    this.data.currentCardNumber.subscribe(data => this.cardNumber = data.toString().substr(data.toString().length - 4));
+    this.data.currentCart.subscribe(data => this.cart = data);
+    this.data.currentAmount.subscribe(data => this.totalA = data);
   }
 
 }

@@ -32,6 +32,13 @@
                 <div *ngIf="f.cYear.errors.required">El año de vencimiento es necesario</div>
               </div>
             </div>
+            <div class="form-group col s6">
+              <label for="cCCV">CCV</label>
+              <input type="tel" formControlName="cCCV" maxlength="3" class="form-control" [ngClass]="{'is-invalid': submitted && f.cCCV.errors }" />
+              <div *ngIf="submitted && f.cCCV.errors.required" class="invalid-feedback">
+                <div *ngIf="f.cCCV.errors.required">El codigo de seguridad es necesario</div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <button class="btn btn-primary">Añadir metodo de pago</button>

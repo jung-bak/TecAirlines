@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { bloomHashBitOrFactory } from '@angular/core/src/render3/di';
 
 export interface OneWay {
   Message_Type: string;
@@ -23,14 +24,15 @@ export interface TwoWay {
 @Injectable()
 export class DataService {
 
+  constructor(
+    private http: HttpClient,
+  ) { }
+
   private response = new BehaviorSubject<string>('');
   currentResponse = this.response.asObservable();
 
   private userId = new BehaviorSubject<number>(0);
   currentUserId = this.userId.asObservable();
-
-  private cardNumber = new BehaviorSubject<number>(0);
-  currentcardNumber = this.cardNumber.asObservable();
 
   private cart = new BehaviorSubject<any[]>([]);
   currentCart = this.cart.asObservable();
@@ -53,9 +55,92 @@ export class DataService {
   private pCode = new BehaviorSubject<number>(0);
   currentPcode = this.pCode.asObservable();
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  private amount = new BehaviorSubject<number>(0);
+  currentAmount = this.amount.asObservable();
+
+  private cardName = new BehaviorSubject<string>('');
+  currentCardName = this.cardName.asObservable();
+
+  private cardNumber = new BehaviorSubject<number>(0);
+  currentCardNumber = this.cardNumber.asObservable();
+
+  private cardMonth = new BehaviorSubject<number>(0);
+  currentCardMonth = this.cardMonth.asObservable();
+
+  private cardYear = new BehaviorSubject<number>(0);
+  currentCardYear = this.cardYear.asObservable();
+
+  private cardCcv = new BehaviorSubject<number>(0);
+  currentCardCcv = this.cardCcv.asObservable();
+
+  private sSeats = new BehaviorSubject<boolean>(true);
+  currentSseats = this.sSeats.asObservable();
+
+  private sPay_info = new BehaviorSubject<boolean>(false);
+  currentSpay_info = this.sPay_info.asObservable();
+
+  private sConfirmation = new BehaviorSubject<boolean>(false);
+  currentSconfirmation = this.sConfirmation.asObservable();
+
+  private perce = new BehaviorSubject<number>(0);
+  currentPerce = this.perce.asObservable();
+
+  private atCero = new BehaviorSubject<boolean>(true);
+  currentAtCero = this.atCero.asObservable();
+
+  private atFifty = new BehaviorSubject<boolean>(false);
+  currentAtFifty = this.atFifty.asObservable();
+
+  private atCien = new BehaviorSubject<boolean>(false);
+  currentAtCien = this.atCien.asObservable();
+
+  changeAtCien(b: boolean) {
+    this.atCien.next(b);
+  }
+
+  changeAtCero(b: boolean) {
+    this.atCero.next(b);
+  }
+
+  changeAtFifty(b: boolean) {
+    this.atFifty.next(b);
+  }
+
+  changePerce(n: number) {
+    this.perce.next(n);
+  }
+
+  changeSseats(b: boolean) {
+    this.sSeats.next(b);
+  }
+
+  changeSpay_info(b: boolean) {
+    this.sPay_info.next(b);
+  }
+
+  changeSconfirmation(b: boolean) {
+    this.sConfirmation.next(b);
+  }
+
+  changeCardName(n: string) {
+    this.cardName.next(n);
+  }
+
+  changeCardMonth(m: number) {
+    this.cardMonth.next(m);
+  }
+
+  changeCardYear(y: number) {
+    this.cardYear.next(y);
+  }
+
+  changeCardCcv(c: number) {
+    this.cardCcv.next(c);
+  }
+
+  changeAmount(a: number) {
+    this.amount.next(a);
+  }
 
   changeResponse(r: string) {
     this.response.next(r);

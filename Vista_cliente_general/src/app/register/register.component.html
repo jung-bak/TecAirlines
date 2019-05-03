@@ -54,10 +54,10 @@
                   </div>
               </div>
               <div class="form-group">
-                  <label for="dir">Email</label>
-                  <input class="form-control" type="email" formControlName="dir" [ngClass]="{'is-invalid': submitted && f.dir.errors}" />
-                  <div *ngIf="submitted && f.dir.errors">
-                      <div *ngIf="f.dir.errors.required">Email is required</div>
+                  <label for="email">Email</label>
+                  <input class="form-control" type="email" formControlName="email" [ngClass]="{'is-invalid': submitted && f.email.errors}" />
+                  <div *ngIf="submitted && f.email.errors">
+                      <div *ngIf="f.email.errors.required">Email is required</div>
                   </div>
               </div>
               <div class="form-group">

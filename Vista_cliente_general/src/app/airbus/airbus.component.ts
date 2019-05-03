@@ -25,12 +25,16 @@ export class AirbusComponent implements OnInit {
     eventId: 0
   };
 
+  cTickets: number;
+  active: boolean = false;
+
   constructor(
     private data: DataService
   ) { }
 
   ngOnInit(): void {
     this.data.currentCart.subscribe(cart => this.dataCart = cart);
+    this.data.currentCticks.subscribe(data => this.cTickets = data);
     this.seatConfig = [
       {
         'seat_price': 100,
@@ -73,7 +77,11 @@ export class AirbusComponent implements OnInit {
   }
 
   updateCart() {
-    this.data.changeCart([this.cart.totalamount, this.cart.selectedSeats]);
+    if (!this.active) {
+      this.active = !this.active;
+    }
+    this.data.changeCart(this.cart.selectedSeats);
+    this.data.changeAmount(this.cart.totalamount);
   }
 
   public processSeatChart(map_data: any[]) {
@@ -187,5 +195,4 @@ export class AirbusComponent implements OnInit {
     }
 
   }
-
 }

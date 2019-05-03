@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(6)]],
             cedula: ['', [Validators.required, Validators.minLength(8)]],
             phone: ['', [Validators.required, Validators.minLength(8)]],
-            email:['', Validators.required]
+            email: ['', Validators.required]
         });
     }
 

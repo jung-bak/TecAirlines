@@ -8,44 +8,51 @@ import { DataService } from '@app/_services';
 })
 export class ReservaComponent implements OnInit {
 
-  public perce = 0;
-  public sSeats = true;
-  public sPay_info = false;
-  public sConfirmation = false;
+  perce = 0;
+  sSeats: boolean;
+  sPay_info: boolean;
+  sConfirmation: boolean;
   dateL: any[];
-  atCero: boolean = true;
+  atCero: boolean;
+  atFifty: boolean;
+  atCien: boolean;
 
   constructor(
-    private date: DataService,
+    private data: DataService,
   ) { }
 
   ngOnInit() {
-    this.date.currentDateRange.subscribe(dateRange => this.dateL = dateRange);
+    this.data.currentDateRange.subscribe(dateRange => this.dateL = dateRange);
+    this.data.currentSseats.subscribe(data => this.sSeats = data);
+    this.data.currentSpay_info.subscribe(data => this.sPay_info = data);
+    this.data.currentSconfirmation.subscribe(data => this.sConfirmation = data);
+    this.data.currentPerce.subscribe(data => this.perce = data);
+    this.data.currentAtCero.subscribe(data => this.atCero = data);
+    this.data.currentAtFifty.subscribe(data => this.atFifty = data);
+    this.data.currentAtCien.subscribe(data => this.atCien = data);
   }
 
   next() {
-    if (this.perce === 0) {
-      this.sSeats = !this.sSeats;
-      this.sPay_info = true;
-      this.perce += 33;
-      this.atCero = false;
-    } else if (this.perce === 33) {
-      this.sPay_info = !this.sPay_info;
-      this.sConfirmation = true;
-      this.perce += 33;
-    }
+    this.data.changeSseats(!this.sSeats);
+    this.data.changeSpay_info(true);
+    this.data.changePerce(this.perce + 50);
+    this.data.changeAtCero(false);
+    this.data.changeAtFifty(true);
   }
 
   back() {
-    if (this.perce === 66) {
-      this.sConfirmation = !this.sConfirmation;
-      this.sPay_info = !this.sPay_info;
-      this.perce -= 33;
-    } else if (this.perce === 33) {
-      this.sPay_info = !this.sPay_info;
-      this.sSeats = !this.sSeats;
-      this.perce -= 33;
-      this.atCero = true;
+    if (this.perce === 100) {
+      this.data.changeSconfirmation(!this.sConfirmation);
+      this.data.changeSpay_info(!this.sPay_info);
+      this.data.changePerce(this.perce - 50);
+      this.data.changeAtFifty(true);
+      this.data.changeAtCien(false);
+    } else if (this.perce === 50) {
+      this.data.changeSpay_info(!this.sPay_info);
+      this.data.changeSseats(!this.sSeats);
+      this.data.changePerce(this.perce - 50);
+      this.data.changeAtCero(true);
+      this.data.changeAtFifty(false);
     }
   }
 
