@@ -9,15 +9,15 @@ import { DataService } from '@app/_services';
 export class AirbusComponent implements OnInit {
 
   dataCart: any[];
-  private seatConfig: any = null;
-  private seatmap = [];
-  private seatChartConfig = {
+  seatConfig: any = null;
+  seatmap = [];
+  seatChartConfig = {
     showRowsLabel : false,
     showRowWisePricing : false,
     newSeatNoForRow : false
   };
 
-  private cart = {
+  cart = {
     selectedSeats: [],
     seatstoStore: [],
     totalamount: 0,

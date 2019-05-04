@@ -11,16 +11,16 @@ export class BaseplaneComponent implements OnInit {
 
   dataCart: any[];
 
-  private seatConfig: any = null;
-  private seatmap = [];
+  seatConfig: any = null;
+  seatmap = [];
 
-  private seatChartConfig = {
+  seatChartConfig = {
     showRowsLabel : false,
     showRowWisePricing : false,
     newSeatNoForRow : false
   };
 
-  private cart = {
+  cart = {
     selectedSeats : [],
     seatstoStore : [],
     totalamount : 0,

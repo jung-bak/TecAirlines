@@ -31,7 +31,7 @@
         <button *ngIf="!atFifty" (click)="next()" class="btn btn-success">
           Siguiente
         </button>
-        <button *ngIf="atCien" class="btn btn-success">
+        <button [routerLink]="['/']" *ngIf="atCien" class="btn btn-success">
           Pagar
         </button>
     </div>

@@ -18,7 +18,7 @@ export class ReservaComponent implements OnInit {
   atCien: boolean;
 
   constructor(
-    private data: DataService,
+    private data: DataService
   ) { }
 
   ngOnInit() {
