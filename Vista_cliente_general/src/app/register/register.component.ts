@@ -27,12 +27,14 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
+            midName: ['', Validators.required],
             lastName: ['', Validators.required],
+            email: ['', Validators.required],
+            uniname: ['', Validators.required],
             username: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            cedula: ['', [Validators.required, Validators.minLength(8)]],
+            carnet: ['', [Validators.required, Validators.minLength(8)]],
             phone: ['', [Validators.required, Validators.minLength(8)]],
-            email: ['', Validators.required]
         });
     }
 

@@ -6,12 +6,19 @@
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <div class="row">
                   <div class="form-group col s6"> <!--First Name-->
-                      <label for="firstName">First Name</label>
+                      <label for="firstName">Primer Nombre</label>
                       <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
                       <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                           <div *ngIf="f.firstName.errors.required">First Name is required</div>
                       </div>
                   </div>
+                  <div class="form-group col s6"> <!--Last Name-->
+                    <label for="midName">Segundo Nombre</label>
+                    <input type="text" formControlName="midName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.midName.errors }" />
+                    <div *ngIf="submitted && f.midName.errors" class="invalid-feedback">
+                        <div *ngIf="f.midName.errors.required">mid Name is required</div>
+                    </div>
+                </div>
                   <div class="form-group col s6"> <!--Last Name-->
                       <label for="lastName">Last Name</label>
                       <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
@@ -22,11 +29,11 @@
               </div>
               <div class="row">
                   <div class="form-group col s6"> <!--cedula-->
-                      <label for="cedula">ID</label>
-                      <input type="tel" formControlName="cedula" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cedula.errors }" />
-                      <div *ngIf="submitted && f.cedula.errors" class="invalid-feedback">
-                          <div *ngIf="f.cedula.errors.required">ID is required</div>
-                          <div *ngIf="f.cedula.errors.minlength">ID must be at least 8 characters</div>
+                      <label for="carnet">Carnet</label>
+                      <input type="tel" formControlName="carnet" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.carnet.errors }" />
+                      <div *ngIf="submitted && f.carnet.errors" class="invalid-feedback">
+                          <div *ngIf="f.carnet.errors.required">Carnet is required</div>
+                          <div *ngIf="f.carnet.errors.minlength">Carnet must be at least 8 characters</div>
                       </div>
                   </div>
                   <div class="form-group col s6">
@@ -60,6 +67,13 @@
                       <div *ngIf="f.email.errors.required">Email is required</div>
                   </div>
               </div>
+              <div class="form-group">
+                <label for="uniname">Universidad</label>
+                <input class="form-control" type="uniname" formControlName="uniname" [ngClass]="{'is-invalid': submitted && f.uniname.errors}" />
+                <div *ngIf="submitted && f.uniname.errors">
+                    <div *ngIf="f.uniname.errors.required">uni name is required</div>
+                </div>
+            </div>
               <div class="form-group">
                   <button [disabled]="loading" class="btn btn-primary">Register</button>
                   <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

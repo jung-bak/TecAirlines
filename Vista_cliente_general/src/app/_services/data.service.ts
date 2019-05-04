@@ -21,6 +21,17 @@ export interface TwoWay {
   PromCode:     number;
 }
 
+export interface Order {
+  Message_Type: string;
+  Cart:         any[];
+  CardNumber:   number;
+  OrderID:      number;
+}
+
+export interface GetOrderID {
+  Message_Type: string;
+}
+
 @Injectable()
 export class DataService {
 
@@ -93,6 +104,13 @@ export class DataService {
 
   private atCien = new BehaviorSubject<boolean>(false);
   currentAtCien = this.atCien.asObservable();
+
+  private orderID = new BehaviorSubject<number>(0);
+  currentOrderID = this.orderID.asObservable();
+
+  changeOrderID(n: number) {
+    this.orderID.next(n);
+  }
 
   changeAtCien(b: boolean) {
     this.atCien.next(b);
@@ -183,46 +201,36 @@ export class DataService {
   }
 
   searchVueloOneWay() {
-    let data_org: string;
-    let data_dest: string;
-    let data_date: string;
-    let data_tickets: number;
-    let data_promCode: number;
-    this.currentOrg.subscribe(data => data_org = data);
-    this.currentDest.subscribe(data => data_dest = data);
-    this.currentSingleDate.subscribe(data => data_date = data);
-    this.currentCticks.subscribe(data => data_tickets = data);
-    this.currentPcode.subscribe(data => data_promCode = data);
     const msg: OneWay =
     JSON.parse('{"Message_Type": "FLIGHT_SEARCH", "Starts": "", "Ends": "", "Date": "", "Ticks": 0, "PromCode": 0}');
-    msg.Starts = data_org;
-    msg.Ends = data_dest;
-    msg.Date = data_date;
-    msg.Ticks = data_tickets;
-    msg.PromCode = data_promCode;
-    console.log(msg);
+    this.currentOrg.subscribe(data => msg.Starts = data);
+    this.currentDest.subscribe(data => msg.Ends = data);
+    this.currentSingleDate.subscribe(data => msg.Date = data);
+    this.currentCticks.subscribe(data => msg.Ticks = data);
+    this.currentPcode.subscribe(data => msg.PromCode = data);
     return this.http.get(JSON.stringify(msg));
   }
 
+  sendOrder() {
+    const msg: Order = JSON.parse('{"Message_Type": "PLACE_ORDER", "Cart": [], "CardNumber": 0, "OrderID": 0}');
+    this.currentCart.subscribe(data => msg.Cart = data);
+    this.currentCardNumber.subscribe(data => msg.CardNumber = data);
+    this.currentOrderID.subscribe(data => msg.OrderID = data);
+    return this.http.get(JSON.stringify(msg));
+  }
+
+  getOrder() {
+    const msg: GetOrderID = JSON.parse('{"Message_Type": "GET_ORDER_ID"}');
+  }
+
   searchVueloTwoWay() {
-    let data_org: string;
-    let data_dest: string;
-    let data_dateRange: string[];
-    let data_tickets: number;
-    let data_promCode: number;
-    this.currentOrg.subscribe(data => data_org = data);
-    this.currentDest.subscribe(data => data_dest = data);
-    this.currentDateRange.subscribe(data => data_dateRange = data);
-    this.currentCticks.subscribe(data => data_tickets = data);
-    this.currentPcode.subscribe(data => data_promCode = data);
     const msg: TwoWay =
     JSON.parse('{"Message_Type": "FLIGHT_SEARCH_TWOWAY", "Starts": "", "Ends": "", "dateRange": "", "Ticks": 0, "PromCode": 0}');
-    msg.Starts = data_org;
-    msg.Ends = data_dest;
-    msg.dateRange = data_dateRange;
-    msg.Ticks = data_tickets;
-    msg.PromCode = data_promCode;
-    console.log(msg);
+    this.currentOrg.subscribe(data => msg.Starts = data);
+    this.currentDest.subscribe(data => msg.Ends = data);
+    this.currentDateRange.subscribe(data => msg.dateRange = data);
+    this.currentCticks.subscribe(data => msg.Ticks = data);
+    this.currentPcode.subscribe(data => msg.PromCode = data);
     return this.http.get(JSON.stringify(msg));
   }
 

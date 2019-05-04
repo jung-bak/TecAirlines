@@ -1,12 +1,12 @@
 ﻿export class User {
-    id: number;
+    fname: string;
+    mname: string;
+    lname: string;
+    email: string;
+    enrolled: boolean;
+    uname: string;
     username: string;
     password: string;
-    firstName: string;
-    lastName: string;
-    cedula: string;
-    fechaNacimiento: string;
-    phone: string;
-    emial: string;
-    token: string;
+    carnet: number;
+    phone: number;
 }
